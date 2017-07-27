@@ -4,8 +4,8 @@ defmodule Web.TopicController do
   alias Web.Topic
 
   def index(conn, _params) do
-    render conn, "index.html"
     topics = Repo.all(Topic)
+    render conn, "index.html", topics: topics
   end
 
   def new(conn, _params) do
@@ -18,12 +18,11 @@ defmodule Web.TopicController do
     changeset = Topic.changeset(%Topic{}, topic)
     case Repo.insert(changeset) do
       {:ok, post} ->
-        render conn, "index.html"
+        render conn
+        |> put_flash(:info, "Topic Created")
+        |> redirect(to: topic_path(conn, :index))
       {:error, changeset} ->
         render conn, "new.html", changeset: changeset
     end
-    # if changeset.valid?
-    #   render conn, "index.html"
-    # end
   end
 end
