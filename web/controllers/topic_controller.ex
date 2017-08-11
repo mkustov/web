@@ -47,7 +47,6 @@ defmodule Web.TopicController do
   end
 
   def delete(conn, %{"id" => topic_id}) do
-    IO.puts 'sdfsdfgsdfg'
     Repo.get!(Topic, topic_id) |> Repo.delete!
     conn
     |> put_flash(:info, "Topic Removed")
