@@ -3,6 +3,8 @@ defmodule Web.TopicController do
 
   alias Web.Topic
 
+  plug Web.Plugs.RequireAuth when action in [:update, :create, :new, :edit, :delete]
+
   def index(conn, _params) do
     topics = Repo.all(Topic)
     render conn, "index.html", topics: topics
