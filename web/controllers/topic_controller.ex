@@ -2,6 +2,7 @@ defmodule Web.TopicController do
   use Web.Web, :controller
 
   alias Web.Topic
+  alias Web.Comment
 
   plug Web.Plugs.RequireAuth when action in [:update, :create, :new, :edit, :delete]
   plug :check_topic_owner when action in [:update, :edit, :delete]
@@ -13,7 +14,8 @@ defmodule Web.TopicController do
 
   def show(conn, %{"id" => topic_id}) do
     topic = Repo.get!(Topic, topic_id)
-    render conn, "show.html", topic: topic
+    comment_changeset = Comment.changeset(%Comment{}, %{})
+    render conn, "show.html", topic: topic, comment_changeset: comment_changeset
   end
 
   def new(conn, _params) do

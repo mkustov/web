@@ -19,6 +19,7 @@ defmodule Web.Router do
 
     get "/", TopicController, :index
     resources "/topics", TopicController
+    resources "/topics/:id/comments", CommentController
   end
 
   scope "/auth", Web do
