@@ -6,6 +6,7 @@ defmodule Web.User do
     field :provider, :string
     field :token, :string
     has_many :topics, Web.Topic
+    has_many :comments, Web.Comment
 
     timestamps()
   end
